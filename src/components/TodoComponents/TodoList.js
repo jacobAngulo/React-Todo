@@ -9,6 +9,7 @@ function TodoList(props) {
                     <Todo 
                         id={todo.id}
                         key = {todo.id}
+                        deleteTodo = {props.deleteTodo}
                         toggleCompleted = {props.toggleCompleted}
                         task = {todo.task} 
                     />

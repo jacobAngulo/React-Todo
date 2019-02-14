@@ -18,18 +18,20 @@ class App extends React.Component {
 
   addTodo = event => {
     event.preventDefault();
-    const newTodo = {
-      task: this.state.task,
-      completed: false,
-      id: this.state.id
+    if(this.state.task !== '') {
+      const newTodo = {
+        task: this.state.task,
+        completed: false,
+        id: this.state.id
+      }
+  
+      this.setState({
+        todos: [...this.state.todos, newTodo],
+        task: '',
+        completed: false,
+        id: Date.now()
+      })  
     }
-
-    this.setState({
-      todos: [...this.state.todos, newTodo],
-      task: '',
-      completed: false,
-      id: Date.now()
-    })
   }
 
   toggleCompleted = event => {
@@ -48,7 +50,22 @@ class App extends React.Component {
     console.log(this.state.todos)
   }
 
-  clearCompleted =event => {
+  deleteTodo = event => {
+    event.preventDefault();
+    console.log(event.target.id)
+    console.log(this.state.todos)
+    const newArray = [];
+    for(let i = 0; i < this.state.todos.length; i++) {
+      if(event.target.id != this.state.todos[i].id) {
+        newArray.push(this.state.todos[i])
+      }
+    }
+    this.setState({
+      todos: newArray
+    })
+  }
+
+  clearCompleted = event => {
     event.preventDefault();
     const newArray = [];
     for(let i = 0; i < this.state.todos.length; i++) {
@@ -73,6 +90,7 @@ class App extends React.Component {
         <TodoList 
           todos = {this.state.todos}
           toggleCompleted = {this.toggleCompleted} 
+          deleteTodo = {this.deleteTodo}
         />
         <TodoForm 
           task = {this.state.task}
