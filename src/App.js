@@ -10,32 +10,25 @@ class App extends React.Component {
     super();
     this.state = {
       todos: todoArray,
-      task: '',
-      completed: false,
-      id: Date.now()
     }
   }
 
-  addTodo = event => {
+  addTodo = (event, task) => {
     event.preventDefault();
-    if(this.state.task !== '') {
-      const newTodo = {
-        task: this.state.task,
-        completed: false,
-        id: this.state.id
-      }
-  
+    const newTask = {
+      task: task,
+      id: Date.now(),
+      completed: false
+    };
+    if(task !== '') {
       this.setState({
-        todos: [...this.state.todos, newTodo],
-        task: '',
-        completed: false,
-        id: Date.now()
-      })  
+        todos: [...this.state.todos, newTask]
+      });
     }
   }
 
   toggleCompleted = event => {
-    event.target.classList.toggle('completed');
+    // event.target.classList.toggle('completed');
     const id = event.target.id;
     this.state.todos.forEach((index) => {
       if(index.id == id) {
@@ -78,26 +71,19 @@ class App extends React.Component {
     })
   }
 
-  handleChanges = event => {
-    this.setState({
-      task: event.target.value
-    })
-  }
-
   render() {
     return (
-      <div>
+      <div className="app">
         <TodoList 
           todos = {this.state.todos}
           toggleCompleted = {this.toggleCompleted} 
           deleteTodo = {this.deleteTodo}
         />
         <TodoForm 
-          task = {this.state.task}
           addTodo = {this.addTodo} 
-          clearCompleted = {this.clearCompleted}
-          handleChanges = {this.handleChanges}
+          // handleChanges = {this.handleChanges}
         />
+        <button onClick={this.clearCompleted}>Clear Completed</button>
       </div>
     );
   }
