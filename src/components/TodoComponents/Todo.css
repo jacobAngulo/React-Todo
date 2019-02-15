@@ -48,8 +48,11 @@ table {
 }
 
 .app {
-    width: 20%;
-    margin: 0 auto;
+	margin: 20px auto;
+	width: 20%;
+	padding: 20px;
+	border-radius: 2.5px;
+	background: rgb(16, 177, 102)
 }
 
 .todo-content {

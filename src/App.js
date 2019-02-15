@@ -1,5 +1,4 @@
 import React from 'react';
-// import Todo from './components/TodoComponents/Todo';
 import TodoList from './components/TodoComponents/TodoList';
 import TodoForm from './components/TodoComponents/TodoForm'
 
@@ -27,18 +26,30 @@ class App extends React.Component {
     }
   }
 
-  toggleCompleted = event => {
+  toggleCompleted = id => {
     // event.target.classList.toggle('completed');
-    const id = event.target.id;
-    this.state.todos.forEach((index) => {
-      if(index.id == id) {
-        if(index.completed == false) {
-          index.completed = true
-        } else {
-          index.completed = false
+    this.setState({
+      todos: this.state.todos.map((todo) => {
+        if(todo.id === id) {
+          return {
+            ...todo,
+
+
+            completed: !todo.completed
+          }
         }
-      }
+        return todo
+      })
     })
+    // this.state.todos.forEach((index) => {
+    //   if(index.id == id) {
+    //     if(index.completed == false) {
+    //       index.completed = true
+    //     } else {
+    //       index.completed = false
+    //     }
+    //   }
+    // })
     console.log(id);
     console.log(this.state.todos)
   }
